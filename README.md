@@ -3,6 +3,8 @@ on floats, vectors, and quaternions for a video game. This is the only
 package I could find so I converted it to 6 points of precision to
 allow for greater values. Thanks aykevl!
 
+with 24 bits for the left side, the range for Q6 is -16777216.000000 - 16777216.000000
+
 # Fixed point vector library
 
 This is a Go library for calculations on 3D objects. All calculations are done
