@@ -1,7 +1,13 @@
+Was looking for a golang library to do deterministic fixed point arithmetic
+on floats, vectors, and quaternions for a video game. This is the only
+package I could find so I converted it to 6 points of precision to
+allow for greater values. Thanks aykevl!
+
 # Fixed point vector library
 
 This is a Go library for calculations on 3D objects. All calculations are done
 with fixed-point math so it is fast on hardware without floating point unit.
+It is also reproduceable accross cpu architectures.
 
 ## Performance
 
