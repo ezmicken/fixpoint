@@ -90,6 +90,10 @@ func (v1 Vec3Q16) Dot(v2 Vec3Q16) Q16 {
 	return v1.X.Mul(v2.X).Add(v1.Y.Mul(v2.Y)).Add(v1.Z.Mul(v2.Z))
 }
 
+func (v1 Vec3Q16) Sub(v2 Vec3Q16) Vec3Q16 {
+  return Vec3Q16{v1.X.Sub(v2.X), v1.Y.Sub(v2.Y), v1.Z.Sub(v2.Z)}
+}
+
 // Cross returns the cross product between this vector and the argument.
 func (v1 Vec3Q16) Cross(v2 Vec3Q16) Vec3Q16 {
 	// Copied from go-gl/mathgl and modified.
