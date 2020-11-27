@@ -1,9 +1,6 @@
 Was looking for a golang library to do deterministic fixed point arithmetic
-on floats, vectors, and quaternions for a video game. This is the only
-package I could find so I converted it to 6 points of precision to
-allow for greater values. Thanks aykevl!
-
-with 18 bits for the left side, the range for Q16 is -262144.000000 - 262144.000000
+on floats, vectors, and quaternions for a video game. This was the best candidate.
+I converted it to Q16 to allow for greater values. Thanks aykevl!
 
 # Fixed point vector library
 
