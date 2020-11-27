@@ -60,6 +60,9 @@ func (q1 Q16) Div(q2 Q16) Q16 {
 	return Q16{int32((int64(q1.N) << 16) / int64(q2.N))}
 }
 
+var ZeroQ16 Q16 = Q16{0 << 16}
+var OneQ16 Q16 = Q16{1 << 16}
+
 // Vec3Q16 is a 3-dimensional vector with Q16 fixed point elements.
 type Vec3Q16 struct {
 	X Q16
@@ -99,6 +102,9 @@ func (v1 Vec3Q16) Cross(v2 Vec3Q16) Vec3Q16 {
 	// Copied from go-gl/mathgl and modified.
 	return Vec3Q16{v1.Y.Mul(v2.Z).Sub(v1.Z.Mul(v2.Y)), v1.Z.Mul(v2.X).Sub(v1.X.Mul(v2.Z)), v1.X.Mul(v2.Y).Sub(v1.Y.Mul(v2.X))}
 }
+
+var ZeroVec3Q16 Vec3Q16 = Vec3Q16{ZeroQ16, ZeroQ16, ZeroQ16}
+var OneVec3Q16 Vec3Q16 = Vec3Q16{OneQ16, OneQ16, OneQ16}
 
 // QuatQ16 is a quaternion with Q16 fixed point elements.
 type QuatQ16 struct {
