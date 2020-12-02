@@ -13,6 +13,11 @@ type Q16 struct {
 	N int32
 }
 
+var ZeroQ16 Q16 = Q16{0 << 16}
+var HalfQ16 Q16 = Q16{int32(0.5 * (1 << 16))}
+var OneQ16 Q16 = Q16{1 << 16}
+var TwoQ16 Q16 = Q16{2 << 16}
+
 // Q16FromFloat converts a float32 to the same number in fixed point format.
 // Inverse of .Float().
 func Q16FromFloat(x float32) Q16 {
@@ -60,8 +65,41 @@ func (q1 Q16) Div(q2 Q16) Q16 {
 	return Q16{int32((int64(q1.N) << 16) / int64(q2.N))}
 }
 
-var ZeroQ16 Q16 = Q16{0 << 16}
-var OneQ16 Q16 = Q16{1 << 16}
+func (q1 Q16) InvSqrt() Q16 {
+  if(q1.N <= 65536){
+      return OneQ16;
+  }
+
+  xSR := int64(q1.N)>>1;
+  pushRight := int64(q1.N);
+  var msb int64 = 0;
+  var shoffset int64 = 0;
+  var yIsqr int64 = 0;
+  var ysqr int64 = 0;
+  var fctrl int64 = 0;
+  var subthreehalf int64 = 0;
+
+  for pushRight >= 65536 {
+    pushRight >>=1;
+    msb++;
+  }
+
+  shoffset = (16 - ((msb)>>1));
+  yIsqr = 1<<shoffset;
+  //y = (y * (98304 - ( ( (x>>1) * ((y * y)>>16 ) )>>16 ) ) )>>16;   x2
+  //Incantation 1
+  ysqr = (yIsqr * yIsqr)>>16;
+  fctrl = (xSR * ysqr)>>16;
+  subthreehalf = 98304 - fctrl;
+  yIsqr = (yIsqr * subthreehalf)>>16;
+  //Incantation 2 - Increases precision greatly, but may not be neccessary
+  ysqr = (yIsqr * yIsqr)>>16;
+  fctrl = (xSR * ysqr)>>16;
+  subthreehalf = 98304 - fctrl;
+  yIsqr = (yIsqr * subthreehalf)>>16;
+
+  return Q16{int32(yIsqr)}
+}
 
 // Vec3Q16 is a 3-dimensional vector with Q16 fixed point elements.
 type Vec3Q16 struct {
