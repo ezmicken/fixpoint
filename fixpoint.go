@@ -139,6 +139,12 @@ func (v1 Vec3Q16) Cross(v2 Vec3Q16) Vec3Q16 {
 	return Vec3Q16{v1.Y.Mul(v2.Z).Sub(v1.Z.Mul(v2.Y)), v1.Z.Mul(v2.X).Sub(v1.X.Mul(v2.Z)), v1.X.Mul(v2.Y).Sub(v1.Y.Mul(v2.X))}
 }
 
+func (v1 Vec3Q16) Normalize() Vec3Q16 {
+  sqrMag := v1.X.Mul(v1.X).Add(v1.Y.Mul(v1.Y))
+  iSqrt := sqrMag.InvSqrt()
+  return Vec3Q16{v1.X.Mul(iSqrt), v1.Y.Mul(iSqrt), v1.Z.Mul(iSqrt)}
+}
+
 var ZeroVec3Q16 Vec3Q16 = Vec3Q16{ZeroQ16, ZeroQ16, ZeroQ16}
 var OneVec3Q16 Vec3Q16 = Vec3Q16{OneQ16, OneQ16, OneQ16}
 
