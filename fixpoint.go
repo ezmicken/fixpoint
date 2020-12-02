@@ -65,6 +65,7 @@ func (q1 Q16) Div(q2 Q16) Q16 {
 	return Q16{int32((int64(q1.N) << 16) / int64(q2.N))}
 }
 
+var InvSqrtPrecision int = 4
 func (q1 Q16) InvSqrt() Q16 {
   if(q1.N <= 65536){
       return OneQ16;
@@ -85,18 +86,15 @@ func (q1 Q16) InvSqrt() Q16 {
   }
 
   shoffset = (16 - ((msb)>>1));
-  yIsqr = 1<<shoffset;
-  //y = (y * (98304 - ( ( (x>>1) * ((y * y)>>16 ) )>>16 ) ) )>>16;   x2
-  //Incantation 1
-  ysqr = (yIsqr * yIsqr)>>16;
-  fctrl = (xSR * ysqr)>>16;
-  subthreehalf = 98304 - fctrl;
-  yIsqr = (yIsqr * subthreehalf)>>16;
-  //Incantation 2 - Increases precision greatly, but may not be neccessary
-  ysqr = (yIsqr * yIsqr)>>16;
-  fctrl = (xSR * ysqr)>>16;
-  subthreehalf = 98304 - fctrl;
-  yIsqr = (yIsqr * subthreehalf)>>16;
+  yIsqr = 1<<shoffset
+
+  // y = (y * (98304 - ( ( (x>>1) * ((y * y)>>16 ) )>>16 ) ) )>>16;   x2
+  for i := 0; i < InvSqrtPrecision; i++ {
+    ysqr = (yIsqr * yIsqr)>>16
+    fctrl = (xSR * ysqr)>>16
+    subthreehalf = 98304 - fctrl;
+    yIsqr = (yIsqr * subthreehalf)>>16
+  }
 
   return Q16{int32(yIsqr)}
 }
