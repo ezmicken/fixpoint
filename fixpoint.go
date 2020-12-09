@@ -17,6 +17,7 @@ var ZeroQ16 Q16 = Q16{0 << 16}
 var HalfQ16 Q16 = Q16{int32(0.5 * (1 << 16))}
 var OneQ16 Q16 = Q16{1 << 16}
 var TwoQ16 Q16 = Q16{2 << 16}
+var MaxQ16 Q16 = Q16{2147483647}
 
 // Q16FromFloat converts a float32 to the same number in fixed point format.
 // Inverse of .Float().
