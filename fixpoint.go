@@ -29,6 +29,14 @@ func Q16FromInt32(x int32) Q16 {
 	return Q16{x << 16}
 }
 
+func Abs(q1 Q16) Q16 {
+  if q1.N < 0 {
+    return q1.Neg()
+  }
+
+  return q1
+}
+
 // Float returns the floating point version of this fixed point number. Inverse
 // of Q16FromFloat.
 func (q Q16) Float() float32 {

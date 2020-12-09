@@ -20,6 +20,13 @@ func TestQ16(t *testing.T) {
   }
 }
 
+func TestAbs(t *testing.T) {
+  if Abs(OneQ16.Neg()).N < 0 {
+    t.Logf("%v is not %v", Abs(OneQ16.Neg()), OneQ16.N)
+    t.Fail()
+  }
+}
+
 func TestRotation(t *testing.T) {
   // Create vector to rotate.
   vec1 := mgl32.Vec3{0, 0.832, 0.554}
