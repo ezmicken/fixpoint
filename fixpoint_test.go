@@ -27,6 +27,20 @@ func TestAbs(t *testing.T) {
   }
 }
 
+func TestMin(t *testing.T) {
+  if Min(OneQ16.Neg(), OneQ16) != OneQ16.Neg() {
+    t.Logf("%v is not %v", Min(OneQ16.Neg(), OneQ16), OneQ16.Neg())
+    t.Fail()
+  }
+}
+
+func TestMax(t *testing.T) {
+  if Max(OneQ16.Neg(), OneQ16) != OneQ16 {
+    t.Logf("%v is not %v", Min(OneQ16.Neg(), OneQ16), OneQ16)
+    t.Fail()
+  }
+}
+
 func TestRotation(t *testing.T) {
   // Create vector to rotate.
   vec1 := mgl32.Vec3{0, 0.832, 0.554}

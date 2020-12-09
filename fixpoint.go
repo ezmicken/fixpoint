@@ -38,6 +38,22 @@ func Abs(q1 Q16) Q16 {
   return q1
 }
 
+func Min(q1 Q16, q2 Q16) Q16 {
+  if q2.N < q1.N {
+    return q2
+  }
+
+  return q1
+}
+
+func Max(q1 Q16, q2 Q16) Q16 {
+  if q2.N > q1.N {
+    return q2
+  }
+
+  return q1
+}
+
 // Float returns the floating point version of this fixed point number. Inverse
 // of Q16FromFloat.
 func (q Q16) Float() float32 {
